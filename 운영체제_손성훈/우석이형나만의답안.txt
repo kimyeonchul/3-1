@@ -1,0 +1,105 @@
+개념관련된거 많이 나옴, 거의 객관식, 33문제(객관 20/단답 10)
+
+1장
+캐시 고려사항(크기, 접근 권한) 캐시 정책관련
+- cache 설계할 때 cached(캐쉬에 저장되는 데이터)보다 cache가 커야하므로 크기와, 교체 정책(replacement policy)가 중요
+
+smp 의 특징 1장 18page 그림
+- symmetric multiprogramming 이므로 두개 이상의 core가 하나의 메모리를 대칭으로 공유한다. 동등한 입장
+
+커널모드의 다른 이름(프리빌리지 모드인가 23p)
+-privileged mode
+- privileged (권한 있는) , user mode에서는 privileged instruction을 사용할 수 없음, 커널은 모든 명렁 사용 가능
+
+2장 (ppt에 안나오는 용어들이 많이 나옴)
+system call 특징
+
+마이크로커널 시스템 구조에
+message passing 
+커널에 뭐가 들어가고 , 얘가 빠르냐 느리냐 등등의 특성
+- 커널에 들어가는 3가지 기능은 memory 관리, cpu scheduling , inter process communication(ipc) 다른 것들은 user inteface에 존재
+- message passing은 system call을 호출해야 하므로(밖에 있는 기능 사용 시 ) shared memory보다 성능이 좋지 않음
+
+3장
+
+인터럽트 시간초과에 관련된 것이다. cpu를 뺏기는 거.
+그림을 주고 cpu를 뺏기는게 어떤 동작이냐
+- cpu를 뺏기는 동작. 그림에서 running->ready 바로 가는 화살표 interrupt
+- 보통은 running 후 입출력을 진행해서 waiting으로 간다.
+
+pcb 특성, pcb의 구조
+queue냐 구조체냐
+- pcb는 구조체. pcb는 status(ex) running, waiting), id(pid), pc와 reg의 복사값, memory 관리 정보, 오픈 파일 목록, 자원사용량, 입출력상태정보 등이 저장되어있음
+
+스케줄러 시스템 과부하에 관련된 스케줄러가 뭐냐
+- degree of multiprogramming (동시에 실행되는 program의 개수) 시스템의 부하라고 볼 수 있음.
+-> new 상태의 process는 시스템의 부하에 영향을 끼치지 않는 process이다. 
+- long-term scheduler는 degree of multiprogramming의 증가속도를 조절하는 스케줄러. ready queue에 뭐가 들어올지 결정. hard disk에 new 를 ready로 가져오는 것이므로 시스템의 과부하에 영향을 미침.
+- medium-term scheduler는 degree of multiprogramming의 감소 속도를 조절. 현재 실행되는 process(memory에 존재)를 disk로 이동시킴. 부하를 감소시킴(swap-out). 다시 가져오는 동작도 medium term scheduler가 하고 swap-in이라고 함
+
+컨텍스트 스위치 나왔는데 뭐가 나온지는 몰라 system call이랑 연관되서 나옴
+
+세ㅜ어드 메모리랑 메세지 패싱 비교 하는 거 뭐가 빠르냐 언제쓰냐 등등 대용량 전송할 때 뭐가 좋다 등등
+- shared memory는 속도는 빠르지만 사용자가 동기화(synchronization)문제를 해결해야 함. producer - consumer 문제
+- massage passing 은 속도는 느리지만 (overhead, system call을 호출하기 때문에) 동기화 문제가 해결되어 있고 커널이 대신 message를 전달해주므로 안전하다
+- 따라서 shared memory는 대용량의 data 전달
+- massage passing은 느리니깐 적은 양의 data 전달
+
+4장
+pthread에서 wait 함수
+- join() 새로생성한 thread 의 종료를 기다림
+
+motivation도 나왔음
+- kernel은 multithread
+- process보다 thread가 light하다. 부담없다.
+
+amdahl's law 계산 문제
+
+pthread join 함수 기다리는 거
+그거를 unix에서는 뭘로 하냐
+- waitforsingleobject
+
+쓰레드에서의 전역변수 문제
+- 전역변수 공유 가능함
+
+thread pools
+쓰레드를 미리 만들어놓은거를 갖다쓰는 게 뭐냐
+- thread pool. thread 상한에 제한이 있다
+
+공유메모리환경에서쓰이는 건?
+- openMp (=mpi)
+
+
+5장
+
+크리티컬 섹션 조건
+
+크리티컬 섹션 코드에서 while문안에 flag랑 turn 들어가는 코드 그거를 빈칸 채우기
+
+bounded-waiting 프로세스가 1-10까지열개 있다. 내가 9번째면 다음 실행되는 프로세스는 뭐고 다음 크리티컬섹션에 진입하는 프로세스는 뭐냐
+
+spinlock 설명 중 틀린 것
+4개중에하나골라라
+
+semapphore 특성 중에 맞는 것을 골라라
+p,v로 불린다
+
+deadlock에서 그림을 주고 발생할 수 있는 상황에 대해 고르기
+
+dining-철학자 문제
+철학자 중에 몇명이 먹을 수 있냐
+
+철학자 문제에서 코드로  크리티컬 조건 중에서 어떤것을 해제할 수 있냐 
+
+21년 (작년꺼) 4-2번 execlp
+작년꺼 5번 같은값이 뭐나오냐
+6번 그냥 똑같게
+7번 똑같이
+
+16년 중간 1분반 
+2번 (4주차 과제랑 같은거)
+
+개념이 많이 나온다
+ppt에 없는 개념 많다
+
+

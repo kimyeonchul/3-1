@@ -1,0 +1,43 @@
+1)
+
+2)
+2-1 new, running, waiting, ready, terminated
+2-2 running,ready,waiting (running->waiting ready->running running->ready)
+2-3 waiting : running->waiting 입출력을 실행했기 때문
+	new : process가 생성되는 중의 상태
+	terminated : process가 종료되는 중의 상태
+	running : os가 cpu를 할당해줌
+	ready: 입출력이 끝나면 이상태로 감. 또는 interrupt(timeshareing의 time이 다 지나서)의 이유를 통해 ready로 감
+2-4 long-term은 ready queue에 들어오는 process를 조절
+	hard disk에서 main memory로 new 상태의 process를 ready 상태로 만들어 ready queue에 넣는다
+따라서 new-> ready
+medium term은 degree of programming의 감소속도를 조절할 수 있다. hard disk에 swap out으로 넣을 수 있고, main memory에 다시 swap in으로 빼올 수 있다. 
+
+suspend ready->ready : disk에 있다가 memory로 올때(swap-in일떄)
+ready->suspend ready : memory에서 disk로 swap-out
+
+3 시스템의 부하 조절, degree of multiprogramming(동시에 실행중인 process의 개수)는 시스템의 부하에 영향을 끼침
+long term scheduler는 ready queue에 들어오는 process를 정하는 scheduler이다. ready queue에 들어오는 것은 정식적인 process이자 현재 실행중인 process가 되는 것이므로 부하가 증가한다. 증가를 감소시킬 수는 없고 증가 속도를 조절할 수 있다.
+medium term scheduler는 현재실행중인 process를 suspend 상태로 만들어 disk로 보낼 수 있다. 이 상태는 현재 실행중인 process로 볼 수 없기 때문에 부하에 포함되지 않고, 따라서 시스템의 부하를 감소 속도를 조절할 수 있고, 증가 속도는 조절할 수 없다.
+short term scheduler는 cpu scheduler로 어떤 process가 running할지 고르는 스케줄러이다. 부하에 관여하지 않는다.
+
+4-1
+8개
+4-2
+4개
+
+5
+A : child pid == 0
+B : child pid1 == 2603
+C : parent pid == 2603
+D : parent pid1 == 2600
+
+6.amdahi
+s = 0.2
+6-1) n=4
+	2.5
+6-2) n=8
+	3.3
+7.
+경우3) multiprocessor에서 multithread를 진행할 때 가장 cpu활용도(utilization)이 좋다고 생각합니다. 따라서 여러개의 처리기가 있고 여러개의 thread가 있을 때 처리기의 개수보다 thread의 개수가 많아야 thread 병행수행을 진행할 수 있기 때문에 경우 3 이 가장 좋은 경우라고 생각합니다.
+	

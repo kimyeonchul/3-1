@@ -1,0 +1,40 @@
+일단 int main(void) 에서 시작해
+flag_neddPrint = 1 모르겟고
+prev_state = 0 모르겠고
+
+pc
+모르겠고
+
+아무튼 
+pc.printf()로 맨 첫줄 출력하고
+arqEvent_clearAllEventFlag()이걸로 초기값으로 다시 설정하는 거
+eventFlag =0으로 초기화
+
+pc가 process 말하는 거 같긴한데
+
+처음에 id for this node로 내 node id 입력
+두번째로 dst node id 입력
+그러면 확인 차 출력을 해준다
+
+arqLLI_initLowLayer를 통해서 endNode_id 로 초기화
+
+while(1) 로 무한 반복문 진입
+
+if문을 통해서 debugg -> prev_state 이전의 state가 main_state 여기서는 idle 상태(전송을 하지 않는 상태) 가 아니면 debug 
+
+
+----------------
+
+switch(main_state)
+case MAINSTATE_IDLE //main_state ==idle 인 경우 
+
+if문을 통해서 들어오는 event 를 체크하고 shift 연산 오른쪽 0x01을 넣어서 return(if 문으로 data가 들어왔는 지 확인)
+
+data info에 대해서 retrieving 
+srcid get해서 가져오고
+내가 입력한 data를 가져오고 (dataPtr)
+길이가 어떻게 되는지 size로 받아오고
+띄어쓰기 있는지 sep로 받아오고
+
+main_state = MAINSTATE_IDEL로 바꾼다
+flg_needPrint = 이게 뭐지 ?
