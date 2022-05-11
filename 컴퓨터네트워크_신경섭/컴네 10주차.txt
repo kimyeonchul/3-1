@@ -1,0 +1,9 @@
+firewall(방화벽)
+- l3,l4,l5 같이 봄
+- some packet에 대해서 pass 하거나 다른 것을 blocking
+- 외부 접속에 대한 관리
+- 세가지 목표(특징)
+	- 모든 양방향의 traffic이 firewall을 통해서 지나가도록 함
+	- local security policy 에 의해 규정된 허용 트래픽만 통과
+	- firewall 자신은 보안에 매우 강해야 함
+- pass 와 block의 기준
