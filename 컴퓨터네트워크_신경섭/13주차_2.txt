@@ -1,0 +1,148 @@
+streaming : 실시간성이 있다고 볼 수 있음. 
+interactivity : 화상 회의 등
+continuous playout : 게임의 비디오
+
+p9
+buffering : 어느정도 packet을 받아놓고 (일정량의 정보를 받고) 재생
+-> 일정한 재생이 가능
+-> network delay 변화에도 대처 가능
+
+p10
+실시간으로 대화하는 형태
+조금의 buffer는 두고 재생
+-delay sensitive 함
+-jitter(떨림): packet간의 간ㄱ격이 일정하지 않음. 민감함
+-> 400ms이상 걸리면 체감상 답답함
+-loss-tolerant : packet 몇개가 중간에 빠져도 okay
+
+p11
+udp streaming : 앱을 통해 streaming
+- server에서 전송률을 조절
+그러한 약속을 (RTP)
+RTP: 실시간 영상들을 재생
+RTCP : (control protocol), UDP를 사용해서 
+issue들 보고
+Firewall에서 UDP를 막는 경우가 많으니 권한 설정을 잘 해줘야함
+
+
+p12
+Http streaming : 웹을 통해 streaming
+
+- prefecting(뒤에서 해결)
+
+p13 Contents Distribution Network(cdn)
+- 왜등장? 비디오가 data가 큼
+- network load의 주 원인
+- single massive data center 기반으로 network streaming하면
+많은 문제 발생. ex) 손흥민경기 서버 터진다
+
+그래서 보ㅗ통 streaming service는 여러대의 server를 분산적을 ㅗ 두고 제공
+isp : 망을 제공/ cp : contents provider 망을 통해 이용
+
+cdn 구축에는 두가지 상반된 원칙이 존재
+1. network 내에 설치
+2. 주변에 전용 회선으로ㅗ 연결해서 설치
+isp 안에와 그 근처에 있어야 함
+contents 를 분산시켜 사람들ㅇ ㅣ 빠르게 사용할 수 있게끔 함
+
+voip:
+1초에 64kbit만큼의 데이터를 생성
+prefetching : 조금 더 미룬다음에 재생(기다렸다가 재생시작)
+
+밑에 그림에서는 하나씩 빼먹고 재생할 ㅅ ㅜ있다.(discard)
+
+-> 등간격인것처럼 재생할 ㅅ ㅜ있다
+
+p18 일정수준 이하로 ㅘ야댄다는 network 요구사항이 있다
+p19 jitter는 불가피함.
+
+p20
+pdu + RTP header를 encapsulated하면 UDP의 SDU
+udp는 error control, flow control이 없음
+RTP를 도와주는 protocolㅇ 따로 존재
+RTCP : RTPㅔ 대한 흐름 제어
+
+SIP : session을 싲가하는 protocol
+나의 session에 초대 -> control prot에 쏴줌 -> 알았다 ㅇㅋ
+-> control port에 쏴줌 -> 연결
+38060 으로 udp로 계속 data를보냄
+48753 으로 udp로 계속 data를 보냄
+text 기반으로 주고받음
+
+p22
+
+보통 서버에 요청, 메일처럼
+
+p24
+청므에 sip를 통햇 ㅓㅇ ㅕㄴ결이 맺어지면 그뒤로는 end to end로 router를 통해 data를 직접 주고받을 수있ㅇ므
+
+p25
+건너뜀
+
+p26
+network 츠겸ㄴ에서 applicatoin 성능의 품질
+그림은 lte에서 제공하는 서비스 종류(1-9)(qci)
+QOS(quality of service)
+우리ㄴ나라는 1,5,9
+tcp 기반 웹 (9)
+
+p27
+최선의 노력(성능이 안좋음)
+multi미디어든 뭐든 게임이든 뭐든 그냥 같은 traffic으로 취급
+-> 서버나 고객이 알아서 해야함, app level에서 알아서 해야함
+알아서 다른 것들을 막고 뭐 그런식으로
+돈을 많이내면 통신사정책에 따라서 해줄수도 있다
+
+differentiated service : traffic을 다르게 취급
+
+per ~~~ : 사람들 사이 연결마다 룰이 다름
+
+그림 : complexity 복잡도
+best-effor : 최소
+diff-service : 중간(조금 된다)
+per~~ : light
+
+deployment :
+bestt : everywhere
+diff-serie: some(일부), 스트리밍 근처
+per~~~ : 
+
+best-effort : 최선의 노력
+멀티미디어 어플리케이션으 ㅣ요구사항을 꼭 만족시키려 하지 않고
+network 성능(부하 등)을 최우선으로 고려
+
+p29
+h1 : voip : 얜는 속도가 중요
+h2 : http : 얘는 신뢰성이 중요
+
+p30 
+queue를 따로 만듦.
+트래픽이 서로 다름으로 traffic isolation이 있어야 함
+
+p31
+best-effort : 서비스 클래스를 구분하지 않음 -> FIFO
+priority queue : 우선순위에 따라 서비스
+high priority queue부터 서비스 한다. lowpriority queue보다 high를 먼저 서비스
+
+p32
+공정하게 돌아가면서 서비스 high랑 low를 돌아가면서 서비스
+priority queue는 문제가 있음 : 많은 data에 대해서 서비스를 하면 우선순위가 높은거부터 하면 deadlock에 빠질 수 있음
+
+그래서 weighted fair queueing :비율을 정해서 공평하게 high 뭐 10개 보내면 1개 low 보내고 한다
+
+p33
+가상적인 바구니 leaky burket
+가상적인 바구니에서 token이 시간당 몇개가 나오게 설정해서 위에 처럼 비율을 정햇 ㅓ전송할 수 있게끔
+수식은 몰라도 댄다
+token 기반 data 전송 하기
+flow control의 sliding window 느낌으로 보면 댄다는데 그건 한번 찾아보자
+
+policing + scheduling 
+기지국에서 다양한 class에 data가 들어오면 서로 다른 queue에 넣어서 defrancy? 를 할 수 있다
+서로 다른 queue에서 data를 어떻게 뺴주냐를 통해서 데이터를 전송하 ㅅ ㅜ있다 ? 암튼 그런느낌
+
+
+
+
+
+

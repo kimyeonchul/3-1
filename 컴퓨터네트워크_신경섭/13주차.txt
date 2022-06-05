@@ -1,0 +1,26 @@
+3page
+all ip : ip 기반으로 한 internet으로 모든 인프라를 통합(네트워크를 통합)
+
+4p
+multimedia service : 고객들의 needs에 의해 탄생
+
+5p
+video : 영상(이미지들의 연속) + 음성, 파일따로
+fps(frame per second) 에 따라서 영상의 매끄러움이 달라짐
+
+6p
+압축
+예측할 수 있는 이미지 삭제(?), interpolation 을 통해서 가운데 데이터를 채워넣음
+
+spatial redundancy
+temporal redundancy
+
+화질을 multiple 버전의 여러개를 만들어놔서 선택 가능하게끔.
+
+7p
+analog를 digital로 바꿔준다. 
+
+
+
+
+
